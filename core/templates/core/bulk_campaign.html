@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bulk Campaigns - QuickReach</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body { background-color: #f6f8fa; }
+        .sidebar { min-height: 100vh; background-color: #fff; border-right: 1px solid #e1e4e8; padding-top: 20px; }
+        .sidebar .nav-link { color: #555; font-weight: 500; padding: 12px 20px; margin-bottom: 5px; display: flex; align-items: center; border-radius: 0 25px 25px 0; margin-right: 15px; }
+        .sidebar .nav-link:hover { background-color: #f0f4ff; color: #667eea; }
+        .sidebar .nav-link.active { background-color: #eef2ff; color: #667eea; border-left: 4px solid #667eea; }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        
+        <nav class="col-md-2 d-none d-md-block sidebar p-0">
+            <div class="mb-5 px-4 pt-2">
+                <a class="navbar-brand fw-bold fs-4 text-dark d-flex align-items-center" href="/">
+                    <i class="bi bi-send-check-fill me-2" style="color: #667eea;"></i> QuickReach
+                </a>
+            </div>
+            <div class="position-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}"><i class="bi bi-house-door"></i> Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'email_generator' %}"><i class="bi bi-envelope-plus"></i> New Email</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-megaphone"></i> Bulk Campaigns</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'schedule' %}"><i class="bi bi-calendar-event"></i> Schedule</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'templates' %}"><i class="bi bi-file-text"></i> Templates</a></li>
+                    <li class="nav-item mt-4"><a class="nav-link" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+                    <li class="nav-item"><a class="nav-link text-danger" href="{% url 'home' %}"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <h2 class="fw-bold mb-4">Bulk Campaign Generator</h2>
+
+            <div class="row g-4">
+                <div class="col-md-5">
+                    <div class="card border-0 shadow-sm p-4">
+                        <h5 class="fw-bold text-primary mb-3">1. Upload CSV List</h5>
+                        <p class="text-muted small">
+                            Upload a CSV file with columns: <strong>Name, Company, Email</strong>.<br>
+                            <a href="#" class="text-decoration-none">Download sample.csv</a>
+                        </p>
+                        
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Select File</label>
+                                <input type="file" name="csv_file" class="form-control" accept=".csv" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Email Purpose</label>
+                                <textarea name="purpose" class="form-control" rows="2" placeholder="e.g. Introduce our new AI product" required></textarea>
+                            </div>
+                             <div class="mb-4">
+                                <label class="form-label fw-bold">Tone</label>
+                                <select name="tone" class="form-select">
+                                    <option>Professional</option>
+                                    <option>Friendly</option>
+                                    <option>Persuasive</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100" style="background: linear-gradient(to right, #667eea, #764ba2); border:none;">
+                                <i class="bi bi-lightning-charge me-2"></i> Start Bulk Generation
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="card border-0 shadow-sm p-4 h-100">
+                        <h5 class="fw-bold text-success mb-3">Generated Queue</h5>
+                        
+                        {% if generated_count %}
+                            <div class="alert alert-success">
+                                <i class="bi bi-check-circle-fill me-2"></i> 
+                                Successfully generated <strong>{{ generated_count }}</strong> emails!
+                            </div>
+                        {% endif %}
+
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Recipient</th>
+                                        <th>Company</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for email in recent_bulk_emails %}
+                                    <tr>
+                                        <td>{{ email.recipient_name }}</td>
+                                        <td>{{ email.company_name }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="{% url 'email_detail' email.id %}" class="btn btn-sm btn-outline-secondary">
+                                                    View
+                                                </a>
+
+                                                {% if email.recipient_email %}
+                                                    <a href="mailto:{{ email.recipient_email }}?subject=Regarding {{ email.company_name }}&body={{ email.generated_content|urlencode }}" 
+                                                       class="btn btn-sm btn-outline-primary" 
+                                                       title="Send to {{ email.recipient_email }}">
+                                                        <i class="bi bi-send"></i>
+                                                    </a>
+                                                {% else %}
+                                                    <button class="btn btn-sm btn-outline-light text-muted" disabled title="No email address found">
+                                                        <i class="bi bi-send-slash"></i>
+                                                    </button>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted py-5">
+                                            Upload a file to see results here.
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

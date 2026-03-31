@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings - QuickReach</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body { background-color: #f6f8fa; }
+        .sidebar { min-height: 100vh; background-color: #fff; border-right: 1px solid #e1e4e8; padding-top: 20px; }
+        .sidebar .nav-link { color: #555; font-weight: 500; padding: 12px 20px; margin-bottom: 5px; display: flex; align-items: center; border-radius: 0 25px 25px 0; margin-right: 15px; }
+        .sidebar .nav-link:hover { background-color: #f0f4ff; color: #667eea; }
+        .sidebar .nav-link.active { background-color: #eef2ff; color: #667eea; border-left: 4px solid #667eea; }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        
+        <nav class="col-md-2 d-none d-md-block sidebar p-0">
+            <div class="mb-5 px-4 pt-2">
+                <a class="navbar-brand fw-bold fs-4 text-dark d-flex align-items-center" href="/">
+                    <i class="bi bi-send-check-fill me-2" style="color: #667eea;"></i> QuickReach
+                </a>
+            </div>
+            <div class="position-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}"><i class="bi bi-house-door"></i> Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'email_generator' %}"><i class="bi bi-envelope-plus"></i> New Email</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'bulk_campaign' %}"><i class="bi bi-megaphone"></i> Bulk Campaigns</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'schedule' %}"><i class="bi bi-calendar-event"></i> Schedule</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'templates' %}"><i class="bi bi-file-text"></i> Templates</a></li>
+                    
+                    <li class="nav-item mt-4">
+                        <a class="nav-link active" href="#">
+                            <i class="bi bi-gear"></i> Settings
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{% url 'logout' %}">
+                            <i class="bi bi-box-arrow-left"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <h2 class="fw-bold mb-4">Account Settings</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm p-4 mb-4">
+                        <h5 class="fw-bold text-primary mb-4">Profile Information</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-muted">Username</label>
+                                <input type="text" class="form-control" value="{{ user.username }}" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-muted">Email Address</label>
+                                <input type="email" class="form-control" value="{{ user.email|default:'admin@quickreach.ai' }}" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-muted">Account Type</label>
+                                <input type="text" class="form-control" value="Pro Plan (Capstone Edition)" readonly>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                     <div class="card border-0 shadow-sm p-4">
+                        <h5 class="fw-bold text-success mb-4">Application Preferences</h5>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <label class="form-check-label">Enable Dark Mode (Coming Soon)</label>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <label class="form-check-label">Email Notifications</label>
+                        </div>
+                        <hr>
+                        <a href="{% url 'logout' %}" class="btn btn-outline-danger w-100">
+                            <i class="bi bi-box-arrow-left me-2"></i> Sign Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

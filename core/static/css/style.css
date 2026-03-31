@@ -1,0 +1,388 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* =========================================
+   1. GLOBAL STYLES
+   ========================================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #f9fafb; 
+    font-family: 'Poppins', sans-serif;
+    color: #4a4a4a;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #111827;
+    font-weight: 600;
+}
+
+p {
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.section-padding {
+    padding: 80px 0;
+}
+
+.text-primary {
+    color: #6c63ff !important;
+}
+
+/* =========================================
+   2. LOGIN PAGE SPECIFIC STYLES
+   (DO NOT TOUCH - Keeps Login Working)
+   ========================================= */
+body.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background: #f6f5f7;
+    margin: -20px 0 50px;
+    overflow: hidden; /* Prevents scrollbars on login */
+}
+
+.auth-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+                0 10px 10px rgba(0,0,0,0.22);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.auth-container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+}
+
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.auth-container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+}
+
+@keyframes show {
+    0%, 49.99% { opacity: 0; z-index: 1; }
+    50%, 100% { opacity: 1; z-index: 5; }
+}
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+
+.auth-container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+.overlay {
+    background: #FF416C;
+    background: -webkit-linear-gradient(to right, #667eea, #764ba2);
+    background: linear-gradient(to right, #667eea, #764ba2);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #FFFFFF;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.auth-container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left { transform: translateX(-20%); }
+.auth-container.right-panel-active .overlay-left { transform: translateX(0); }
+.overlay-right { right: 0; transform: translateX(0); }
+.auth-container.right-panel-active .overlay-right { transform: translateX(20%); }
+
+.social-container { margin: 20px 0; }
+.social-container a {
+    border: 1px solid #DDDDDD;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+    color: #333;
+}
+
+/* Login Forms */
+.auth-container form {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
+.auth-container input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+.auth-container button {
+    border-radius: 20px;
+    border: 1px solid #FF4B2B;
+    background-color: #FF4B2B;
+    background: -webkit-linear-gradient(to right, #667eea, #764ba2);
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    margin-top: 10px;
+}
+
+.auth-container button:active { transform: scale(0.95); }
+.auth-container button.ghost { background-color: transparent; border-color: #FFFFFF; }
+
+
+/* =========================================
+   3. LANDING PAGE STYLES
+   ========================================= */
+
+/* --- NAVBAR --- */
+.navbar { padding-top: 15px; padding-bottom: 15px; background-color: #fff; }
+.navbar-brand { font-weight: 700; color: #667eea !important; }
+.nav-link { font-weight: 500; color: #333 !important; margin-left: 15px; }
+.nav-link:hover, .nav-link.active { color: #667eea !important; }
+
+/* --- HERO SECTION (Updated with Animation) --- */
+.hero-section {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    background: linear-gradient(to right, #ffffff, #f8f9fa); 
+    min-height: 90vh;
+}
+
+/* Animation for Hero Image */
+.entrance-animation {
+    animation: floatUp 1s ease-out forwards, hoverFloat 6s ease-in-out infinite 1s;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes floatUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hoverFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* --- BUTTONS --- */
+.btn-primary, .btn-purple-gradient {
+    border: none;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-purple-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 0%; height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.btn-purple-gradient:hover::before {
+    width: 100%;
+}
+
+.btn-outline-primary {
+    color: #667eea;
+    border-color: #667eea;
+}
+.btn-outline-primary:hover {
+    background-color: #667eea;
+    color: white;
+}
+
+/* --- FEATURE CARDS --- */
+.feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #ffffff;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+}
+
+.icon-box {
+    width: 70px; height: 70px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 20%;
+}
+
+.bg-primary-soft { background-color: rgba(108, 99, 255, 0.1); color: #6c63ff; }
+.bg-purple-soft { background-color: rgba(139, 133, 255, 0.1); color: #8b85ff; }
+.bg-success-soft { background-color: rgba(25, 135, 84, 0.1); }
+
+/* --- PRICING CARDS (Added Ribbon & Hover) --- */
+.pricing-card {
+    transition: transform 0.3s ease;
+    background: #fff;
+}
+
+.pricing-card:hover {
+    transform: scale(1.02);
+}
+
+/* The Ribbon for the "Popular" plan */
+.popular-plan {
+    border: 2px solid #6c63ff !important;
+}
+
+.ribbon {
+    position: absolute;
+    top: 20px;
+    right: -35px;
+    background: #6c63ff;
+    color: #fff;
+    padding: 5px 40px;
+    font-size: 12px;
+    font-weight: bold;
+    transform: rotate(45deg);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* =========================================
+   4. FOOTER SECTION (FIXED & DARK)
+   ========================================= */
+footer {
+    background-color: #212529; /* Bootstrap Dark */
+    margin-top: auto;
+}
+
+/* Footer Link Hover Effects */
+footer a.link-light {
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+footer a.link-light:hover {
+    color: #fff !important;
+    opacity: 1 !important;
+    transform: translateX(5px); /* Slide to right on hover */
+}
+
+/* Social Icons in Footer */
+footer .btn-outline-light {
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.7);
+}
+
+footer .btn-outline-light:hover {
+    background-color: #6c63ff;
+    border-color: #6c63ff;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+/* =========================================
+   5. DASHBOARD SIDEBAR
+   ========================================= */
+.sidebar {
+    min-height: 100vh;
+    background-color: #fff;
+    border-right: 1px solid #e1e4e8;
+    padding-top: 20px;
+}
+.sidebar .nav-link {
+    display: flex; 
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 0 25px 25px 0;
+    margin-right: 15px;
+}
+.sidebar .nav-link:hover { background-color: #f0f4ff; }
+.sidebar .nav-link.active {
+    background-color: #eef2ff;
+    color: #667eea !important;
+    border-left: 4px solid #667eea;
+}

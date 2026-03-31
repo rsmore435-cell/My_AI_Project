@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Email - QuickReach</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        body { background-color: #f6f8fa; }
+        
+        /* Sidebar Styling */
+        .sidebar {
+            min-height: 100vh;
+            background-color: #fff;
+            border-right: 1px solid #e1e4e8;
+            padding-top: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: #555;
+            font-weight: 500;
+            padding: 12px 20px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            border-radius: 0 25px 25px 0;
+            margin-right: 15px;
+        }
+        
+        .sidebar .nav-link:hover { background-color: #f0f4ff; color: #667eea; }
+        
+        .sidebar .nav-link.active {
+            background-color: #eef2ff;
+            color: #667eea;
+            border-left: 4px solid #667eea;
+        }
+
+        /* Card Styling */
+        .generator-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        
+        <nav class="col-md-2 d-none d-md-block sidebar p-0">
+            <div class="mb-5 px-4 pt-2">
+                <a class="navbar-brand fw-bold fs-4 text-dark d-flex align-items-center" href="/">
+                    <i class="bi bi-send-check-fill me-2" style="color: #667eea;"></i> QuickReach
+                </a>
+            </div>
+            <div class="position-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">
+                            <i class="bi bi-house-door"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'email_generator' %}">
+                            <i class="bi bi-envelope-plus"></i> New Email
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'bulk_campaign' %}">
+                            <i class="bi bi-megaphone"></i> Bulk Campaigns
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'schedule' %}">
+                            <i class="bi bi-calendar-event"></i> Schedule
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'templates' %}">
+                            <i class="bi bi-file-text"></i> Templates
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item mt-4">
+                        <a class="nav-link" href="{% url 'settings' %}">
+                            <i class="bi bi-gear"></i> Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{% url 'logout' %}">
+                            <i class="bi bi-box-arrow-left"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <h2 class="fw-bold mb-4">Generate New Email</h2>
+
+            <div class="row">
+                <div class="col-lg-5 mb-4">
+                    <div class="card generator-card p-4 h-100">
+                        <h5 class="fw-bold mb-3 text-primary">Email Details</h5>
+                        
+                        <form method="POST">
+                            {% csrf_token %}
+                            
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Recipient Name</label>
+                                <input type="text" name="recipient" class="form-control bg-light border-0" placeholder="e.g. Elon Musk" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Recipient Email Address</label>
+                                <input type="email" name="recipient_email" class="form-control bg-light border-0" placeholder="name@company.com">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Company Name</label>
+                                <input type="text" name="company" class="form-control bg-light border-0" placeholder="e.g. SpaceX" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Email Purpose</label>
+                                <textarea name="purpose" class="form-control bg-light border-0" rows="3" placeholder="What is this email about?" required></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label small fw-bold text-muted">Tone</label>
+                                <select name="tone" class="form-select bg-light border-0">
+                                    <option value="Professional">Professional</option>
+                                    <option value="Friendly">Friendly</option>
+                                    <option value="Persuasive">Persuasive</option>
+                                    <option value="Urgent">Urgent</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill shadow-sm" style="background: linear-gradient(to right, #667eea, #764ba2); border:none;">
+                                <i class="bi bi-stars me-2"></i> Generate with AI
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-7 mb-4">
+                    <div class="card generator-card p-4 h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold text-success mb-0">Generated Preview</h5>
+                            
+                            {% if generated_email %}
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard()">
+                                    <i class="bi bi-clipboard"></i> Copy
+                                </button>
+                                
+                                <a href="mailto:{{ recipient_email }}?subject=Regarding {{ company }}&body={{ generated_email|urlencode }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-send"></i> Send Now
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="p-4 position-relative" style="background-color: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; min-height: 300px;">
+                            {% if generated_email %}
+                                <div id="email-content" style="white-space: pre-wrap; color: #333; font-family: sans-serif;">{{ generated_email }}</div>
+                            {% else %}
+                                <div class="text-center text-muted mt-5">
+                                    <i class="bi bi-robot fs-1 mb-2 d-block"></i>
+                                    <p>Fill in the details and click generate to see the magic happen.</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    function copyToClipboard() {
+        // 1. Get the text
+        const emailText = document.getElementById("email-content").innerText;
+        
+        // 2. Write to clipboard
+        navigator.clipboard.writeText(emailText).then(() => {
+            alert("Copied to clipboard!");
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+            alert("Failed to copy text.");
+        });
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

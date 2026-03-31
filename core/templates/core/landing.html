@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickReach - Automated Cold Email Generator</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="landing-page">
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="#">
+                <img src="{% static 'img/logo.png' %}" alt="Logo" height="40" class="me-2"> QuickReach
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">Log In</a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{% url 'login' %}" class="btn btn-primary btn-purple-gradient">Sign Up Free</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero-section d-flex align-items-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-3">Supercharge Your Outreach with AI.</h1>
+                    <p class="lead text-muted mb-4">
+                        QuickReach is an automated cold email generator that helps you craft personalized, high-converting emails in seconds. Stop writing, start closing.
+                    </p>
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-purple-gradient btn-lg me-3">Get Started Now <i class="bi bi-arrow-right"></i></a>
+                    <a href="#features" class="btn btn-outline-secondary btn-lg">Learn More</a>
+                </div>
+                <div class="col-lg-6 text-center d-none d-lg-block">
+                    <img src="{% static 'img/hero-image.jpg' %}" alt="Hero Image" class="img-fluid rounded-4 shadow-lg entrance-animation">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="section-padding bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h6 class="text-primary text-uppercase ls-2">Why QuickReach?</h6>
+                <h2 class="fw-bold">Everything you need to scale your outreach</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 p-4 text-center border-0 shadow-sm">
+                        <div class="icon-box mb-3 bg-primary-soft text-primary mx-auto">
+                            <i class="bi bi-cpu-fill fs-2"></i>
+                        </div>
+                        <h5 class="fw-bold">AI-Powered Writing</h5>
+                        <p class="text-muted">Generate personalized cold emails tailored to your recipient's industry and role instantly using advanced AI models.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 p-4 text-center border-0 shadow-sm">
+                        <div class="icon-box mb-3 bg-purple-soft text-purple mx-auto">
+                            <i class="bi bi-megaphone-fill fs-2"></i>
+                        </div>
+                        <h5 class="fw-bold">Bulk Campaigns</h5>
+                        <p class="text-muted">Upload your contact lists and send hundreds of personalized emails with just a few clicks.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 p-4 text-center border-0 shadow-sm">
+                        <div class="icon-box mb-3 bg-success-soft text-success mx-auto">
+                            <i class="bi bi-graph-up-arrow fs-2"></i>
+                        </div>
+                        <h5 class="fw-bold">Analytics Dashboard</h5>
+                        <p class="text-muted">Track opens, clicks, and replies in real-time to optimize your campaigns for better performance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="{% static 'img/marketing.jpg' %}" alt="Email Marketing" class="img-fluid rounded-4 shadow">
+                </div>
+                <div class="col-lg-6 ps-lg-5">
+                    <h2 class="fw-bold mb-4">Why Cold Email Marketing Still Wins</h2>
+                    <p class="text-muted lead">Cold email is the most direct and cost-effective way to generate B2B leads. But manually writing thousands of emails is impossible.</p>
+                    <p class="text-muted">QuickReach automates the heavy lifting. We help you cut through the noise, land in the primary inbox, and start conversations with your ideal customers at scale.</p>
+                    <ul class="list-unstyled mt-4">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Higher ROI than paid ads</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Direct access to decision-makers</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Perfectly scalable process</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section-padding bg-light">
+        <div class="container">
+             <div class="text-center mb-5">
+                <h2 class="fw-bold">Simple, Transparent Pricing</h2>
+                <p class="text-muted">Choose the plan that fits your needs. No hidden fees.</p>
+            </div>
+            <div class="row justify-content-center g-4">
+                <div class="col-md-5 col-lg-4">
+                    <div class="card pricing-card h-100 border-0 shadow-sm p-4">
+                        <div class="card-body text-center">
+                            <h5 class="fw-bold text-muted mb-4">Starter Monthly</h5>
+                            <h1 class="display-4 fw-bold">$29<span class="fs-5 text-muted">/mo</span></h1>
+                            <ul class="list-unstyled my-5 text-start mx-auto" style="max-width: 250px;">
+                                <li class="mb-3"><i class="bi bi-check-lg text-success me-2"></i> 500 AI Generations</li>
+                                <li class="mb-3"><i class="bi bi-check-lg text-success me-2"></i> Basic Analytics</li>
+                                <li class="mb-3"><i class="bi bi-check-lg text-success me-2"></i> Email Support</li>
+                            </ul>
+                            <a href="{% url 'login' %}" class="btn btn-outline-primary w-100">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-lg-4">
+                    <div class="card pricing-card h-100 border-0 shadow p-4 position-relative overflow-hidden popular-plan">
+                        <div class="ribbon">BEST VALUE</div>
+                        <div class="card-body text-center">
+                            <h5 class="fw-bold text-primary mb-4">Pro Yearly</h5>
+                            <h1 class="display-4 fw-bold text-primary">$290<span class="fs-5 text-muted">/yr</span></h1>
+                            <p class="text-success fw-bold mb-0">Save 20%</p>
+                            <ul class="list-unstyled my-5 text-start mx-auto" style="max-width: 250px;">
+                                <li class="mb-3"><i class="bi bi-check-lg text-primary me-2"></i> Unlimited Generations</li>
+                                <li class="mb-3"><i class="bi bi-check-lg text-primary me-2"></i> Advanced Analytics</li>
+                                <li class="mb-3"><i class="bi bi-check-lg text-primary me-2"></i> Priority Support</li>
+                                <li class="mb-3"><i class="bi bi-check-lg text-primary me-2"></i> Bulk Campaign Tools</li>
+                            </ul>
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-purple-gradient w-100">Go Pro Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-dark text-light pt-5 pb-3">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="fw-bold text-white mb-3"><i class="bi bi-send-check-fill me-2"></i> QuickReach</h5>
+                    <p class="text-white-50 small">
+                        QuickReach revolutionizes cold outreach with advanced AI. We replace hours of manual email drafting with instant, hyper-personalized campaigns.
+                    </p>
+                </div>
+
+                <div class="col-6 col-lg-2 mb-4">
+                    <h6 class="fw-bold text-white mb-3">Product</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#features" class="link-light opacity-75 text-decoration-none">Features</a></li>
+                        <li class="mb-2"><a href="#pricing" class="link-light opacity-75 text-decoration-none">Pricing</a></li>
+                        <li class="mb-2"><a href="{% url 'login' %}" class="link-light opacity-75 text-decoration-none">Login</a></li>
+                        <li class="mb-2"><a href="#" class="link-light opacity-75 text-decoration-none">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-lg-3 mb-4">
+                    <h6 class="fw-bold text-white mb-3">Contact Us</h6>
+                    <ul class="list-unstyled small text-white-50">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Tech Innovation Zone, Pune</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> hello@quickreach.ai</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +91 7756041811</li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 mb-4">
+                     <h6 class="fw-bold text-white mb-3">Follow Us</h6>
+                     <div class="d-flex">
+                         <a href="#" class="btn btn-outline-light btn-sm me-2 rounded-circle"><i class="bi bi-twitter"></i></a>
+                         <a href="#" class="btn btn-outline-light btn-sm me-2 rounded-circle"><i class="bi bi-linkedin"></i></a>
+                         <a href="#" class="btn btn-outline-light btn-sm me-2 rounded-circle"><i class="bi bi-facebook"></i></a>
+                         <a href="#" class="btn btn-outline-light btn-sm me-2 rounded-circle"><i class="bi bi-instagram"></i></a>
+                     </div>
+                </div>
+            </div>
+            
+            <hr class="border-secondary my-4">
+            
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="small text-white-50 mb-0">&copy; 2025 QuickReach. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
